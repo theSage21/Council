@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block body %}
+    <ul>
+        {% for topic in topics %}
+        <li>{% if not topic.active %}
+                <strike>
+                <a href={{topic.get_absolute_url}}>{{topic.title}}</a>
+                </strike>
+            {% else %}
+                <a href={{topic.get_absolute_url}}>{{topic.title}}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock  %}

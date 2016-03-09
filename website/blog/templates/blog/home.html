@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block body %}
+{% if posts %}
+    <div class='row'>
+        <div class='col-md-9'>
+            <h2>{{posts.first.title}}</h2><p class='muted'>{{posts.first.stamp}}</p>
+            <pre>{{posts.first.text}}</pre>
+        </div>
+        <div class='col-md-3'>
+                <p class='lead'>Archive</p>
+                <ul>
+                {% for post in posts %}
+                    <li><a href='{{post.get_absolute_url}}'>{{post.title}}</a></li>
+                {% endfor %}
+                </ul>
+        </div>
+    </div>
+{% else %}
+    <h3>BOO!! No blog posts are published yet it seems</h3>
+{% endif %}
+{% endblock %}

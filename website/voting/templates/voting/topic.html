@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block head %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class='row'>
+	<div class='col-md-6'>
+			<p class='lead'>{{topic.title}}</p>
+			<p>{{topic.text}}</p>
+		<div class='container'>
+			{% if form %}
+			<form class='form' method='post' action='{% url 'topic' tid %}'>
+				{% csrf_token %}
+				<p>
+				{{form.as_p}}
+				<input type="submit" value="Cast the Vote" /></p>
+			</form>
+			{% endif %}
+			{% if answer %}
+			<p class='lead'>You voted {{answer}}.</p>
+			{% endif %}
+		</div>
+	</div>
+	{% if answer %}
+	<div id='chart_div' class='col-md-6'>
+		<script>
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+				// Create the data table.
+				var data = new google.visualization.DataTable();
+				data.addColumn('string', 'Vote');
+				data.addColumn('number', 'Counts');
+				data.addRows([
+				  ['Yes', {{vote_yes}}],
+				  ['No', {{vote_no}}],
+				]);
+
+				// Set chart options
+				var options = {'title':'Current figures',
+							   'width':250,
+							   'height':200};
+
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			  }
+
+		</script>
+
+	</div>
+	{% endif %}
+</div><!-- ROW -->
+{% endblock %}
