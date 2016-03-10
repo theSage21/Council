@@ -3,14 +3,17 @@
 {% if posts %}
     <div class='row'>
         <div class='col-md-9'>
-            <h2>{{posts.first.title}}</h2><p class='muted'>{{posts.first.stamp}}</p>
-            <pre>{{posts.first.text}}</pre>
+            <h2><a href="{{latest.get_absolute_url}}">{{latest.title}}</a></h2><small>{{latest.stamp}}</small>
+            <pre>{{latest.text}}</pre>
         </div>
         <div class='col-md-3'>
                 <p class='lead'>Archive</p>
                 <ul>
                 {% for post in posts %}
-                    <li><a href='{{post.get_absolute_url}}'>{{post.title}}</a></li>
+                    <li>
+                        <a href='{{post.get_absolute_url}}'>{{post.title}}</a>
+                        {% if post.pinned %}<span class="glyphicon glyphicon-pushpin"></span>{% endif %}
+                    </li>
                 {% endfor %}
                 </ul>
         </div>

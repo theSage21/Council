@@ -3,11 +3,11 @@ from blog import models
 
 
 def home(request):
-    C = {}
+    C = {}  # Context
     template = 'blog/home.html'
-    C['posts'] = models.Post.objects.filter(published=True).order_by('-stamp')[:15]
-    context = C
-    return render(request, template, context)
+    C['posts'] = models.Post.objects.filter(published=True).order_by('-pinned', '-stamp')[:15]
+    C['latest'] = models.Post.objects.filter(published=True).order_by('-stamp').first()
+    return render(request, template, C)
 
 
 def blogpost(request, pid):

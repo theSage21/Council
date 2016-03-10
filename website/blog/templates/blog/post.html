@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
     {% if post %}
-    <h2>{{post.title}}</h2><p class='muted'>{{post.stamp}}</p>
+        <h2>{{post.title}}</h2><small>{{post.stamp}}</small>
         <pre>{{post.text}}</pre>
     {% endif %}
 {% endblock %}

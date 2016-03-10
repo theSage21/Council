@@ -8,6 +8,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField(help_text='Enter text in Markdown format')
     published = models.BooleanField(default=False)
+    pinned = models.BooleanField(default=False)
 
     stamp = models.DateTimeField(auto_now_add=True)
 
